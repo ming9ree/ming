@@ -1,0 +1,103 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	cout << "--------별 찍기 시스템-------" << endl;
+	int shapenum, linenum , i, j, k;
+
+	do
+	{
+		cout << "만들고 싶은 모양을 선택해주세요." << endl
+			<< "1. 직각삼각형" << endl << "2. 정삼각형" << endl << "3. 나비" << endl
+			<< "4. 나가기" << endl;
+
+		cin >> shapenum; //원하는 숫자 입력
+
+		switch (shapenum)
+		{
+		case 1:
+			cout << "직각삼각형을 선택하셨습니다." << endl << "행의 개수를 선택해주세요." << endl;
+			cin >> linenum;
+			for (i = 0; i < linenum; i++) //우측 하단이 직각인 삼각형
+			{
+				for (j = 0; j <= linenum - 1 - i; j++)
+					cout << " ";
+				for (k = 0; k <= i; k++)
+					cout << "*";
+				cout << endl;
+			}
+			cout << endl;
+			for (i = 0; i < linenum; i++) //좌측 상단이 직각인 삼각형
+			{
+				for (j = 0; j <= linenum -1 -i ; j++)
+					cout << "*";
+				for (k = 0; k <= i; k++)
+					cout << " ";
+				cout << endl;
+			}
+			cout << endl;
+			for (i = 0; i < linenum; i++) //우측 상단이 직각인 삼각형
+			{
+				for (j = 0; j <= i - 1; j++)
+					cout << " ";
+				for (k = 0; k < linenum - i; k++)
+					cout << "*";
+				cout << endl;
+			}
+			break;
+		case 2:
+			cout << endl << "정삼각형을 선택하셨습니다." << endl <<
+				"항의 개수를 선택해주세요." << endl;
+			cin >> linenum;
+			for (i = 0; i < linenum; i++)
+			{
+				for (j = 0; j < linenum - 1 - i; j++)
+					cout << " ";
+				for (k = 0; k < i * 2 + 1; k++)
+					cout << "*";
+				cout << endl;
+			}
+			break;
+		case 3:
+			cout << endl << "나비를 선택하셨습니다." << endl << "홀수를 입력해주세요: ";
+			cin >> linenum;
+
+			while (linenum % 2 == 0) //짝수 입력 시 홀수를 입력하라는 문장 출력
+			{
+				cout << "홀수를 입력해주세요: ";
+				cin >> linenum;
+			}
+
+			for (i = 1; i < linenum / 2 + 1; i++)
+			{
+				for (j = 1; j <= i; j++)
+					cout << "*";
+				for (j = 1; j <= linenum - i * 2; j++)
+					cout << " ";
+				for (j = 1; j <= i; j++)
+					cout << "*";
+				cout << endl;
+			}
+			for (j = 1; j <= linenum; j++)
+				cout << "*";
+			cout << endl;
+			for (i = linenum / 2; i > 0; i--)
+			{
+				for (j = 1; j <= i; j++)
+					cout << "*";
+				for (j = 1; j <= linenum - i * 2; j++)
+					cout << " ";
+				for (j = 1; j <= i; j++)
+					cout << "*";
+				cout << endl;
+			}
+			break;
+		case 4:
+			cout << "나가기를 선택하셨습니다." << endl << "감사합니다.";
+			return 0;
+			break;
+		}
+
+	} while (linenum != 4);
+}
