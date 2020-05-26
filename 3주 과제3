@@ -1,0 +1,31 @@
+#include <iostream>
+#include <algorithm> //sort함수가 들어있는 헤더파일
+using namespace std;
+
+void print(int *a) //출력함수 print 생성
+{
+	for (int i = 0; i < 5; i++) //index 0부터 4까지 for문을 이용해 출력
+	{
+		cout << i + 1 << ". " << a[i] << endl;
+	}
+}
+int main()
+{
+	int a[5]; //5개의 int형 숫자를 저장할 배열 선언
+	cout << "숫자 다섯 개를 입력해주세요 (띄어쓰기로 구분) >> "; //안내문 출력
+
+	for (int i = 0; i < 5; i++) //인덱스 0부터 4까지 for문을 이용해 입력
+	{
+		cin >> a[i];
+	}
+	
+	cout << "<정렬 전>" << endl << endl;
+	print(a);
+
+	sort(a, a + 5); //sort(배열이름,배열크기) 함수를 이용해 오름차순으로 배열
+
+	cout << "<정렬 후>" << endl << endl;
+	print(a);
+
+	return 0;
+}
