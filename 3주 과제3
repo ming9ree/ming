@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm> //sort함수가 들어있는 헤더파일
 using namespace std;
 
 void print(int *a) //출력함수 print 생성
@@ -7,6 +6,24 @@ void print(int *a) //출력함수 print 생성
 	for (int i = 0; i < 5; i++) //index 0부터 4까지 for문을 이용해 출력
 	{
 		cout << i + 1 << ". " << a[i] << endl;
+	}
+}
+
+void sort(int *arr) //정렬함수 sort 생성
+{
+	int temp, k, i; //값 교환을 위해 임시 저장공간 temp와 for문에서 쓰일 k, i 선언
+	for (k = 0; k < 4; k++) //총 반복해야하는 횟수. 인덱스 4가 인덱스0까지 오는 것과 같다.
+	{
+		for (i = 0; i < 4; i++) /*두 수를 비교할 횟수,
+								인덱스0-1, 1-2, 2-3, 3-4  총 4번*/
+		{
+			if (arr[i] > arr[i + 1]) //더 작은 인덱스에 큰 값이 들어갔을 경우 두 값 교환
+			{
+				temp = arr[i + 1];   //temp에 값2를 저장
+				arr[i + 1] = arr[i]; //값 2에 값1을 저장
+				arr[i] = temp;       //값 1에 temp에 저장해둔 값2를 저장
+			}
+		}
 	}
 }
 int main()
@@ -18,11 +35,11 @@ int main()
 	{
 		cin >> a[i];
 	}
-	
+
 	cout << "<정렬 전>" << endl << endl;
 	print(a);
 
-	sort(a, a + 5); //sort(배열이름,배열크기) 함수를 이용해 오름차순으로 배열
+	sort(a); //sort(배열이름,배열크기) 함수를 이용해 오름차순으로 배열
 
 	cout << "<정렬 후>" << endl << endl;
 	print(a);
