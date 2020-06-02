@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string> //문자열을 받기 위해 string을 사용
+using namespace std;
+
+class directory // class 선언
+{
+	string pnum; //전화변호 변수 
+	string name; //이름 변수
+	//접근 지정자를 선언하지 않으면 기본값은 private이다.
+
+public:
+	void addPhone(); //입력한 전화번호 등록함수
+	void editPhone(); //번호 수정 함수 
+	string getPnum(); // 입력된 번호 불러오는 함수 
+	string getName(); // 입력된 이름 불러오는 함수
+};
+
+void directory::addPhone() //전화번호를 등록하는 멤버함수
+{
+	cout << "--- swing 전화번호부 ---" << endl
+		<< "이름을 입력해 주세요 >> ";
+	cin >> name; //이름 입력
+	cout << "전화번호를 입력해 주세요 >> ";
+	cin >> pnum; //번호 입력
+}
+
+void directory::editPhone() //전화번호를 수정하는 멤버함수
+{
+	string editName; //수정할 때 입력할 이름. 기존 이름과 일치을 위해 새 변수 사용
+	cout << "이름을 입력해주세요 >> "; 
+	do
+	{
+		cin >> editName; 
+		if (editName != name) //전화번호부에 입력된 이름이 아닌 다름 이름이면 다시 입력
+		{
+			cout << "연락처가 존재하지 않습니다. 다시 입력해 주세요 >> ";
+		}
+	} while (editName != name); //이름이 같을 때까지 반복한다.
+
+	cout << "변경할 전화번호를 입력해 주세요 >> ";
+	cin >> pnum; //변경할 번호 입력
+}
+
+string directory::getPnum() //입력된 번호를 불러오는 멤버 함수
+{
+	return pnum; //해당 함수 사용 시 return값인 입력된 번호를 불러옴
+}
+
+string directory::getName() //입력된 이름을 불러오는 멤버 함수
+{
+	return name; //해당 함수 사용 시 return값인 입력된 이름을 불러옴
+}
+
+int main()
+{
+	directory d; //객체 생성
+	d.addPhone(); //전화번호등록 멤버함수 사용
+
+	int list; //원하는 기능 입력 시 사용
+	do  // n이 3이 나올 때까지 반복
+	{
+		cout << endl << "1. 최신 등록 전화번호 조회" << endl
+			<< "2. 최신 등록 전화번호 수정" << endl
+			<< "3. 종료"  << endl << ">> ";
+		cin >> list;  // 원하는 기능 입력
+
+		switch (list) // 입력값이 정수이므로 간편하게 switch문을 사용
+		{
+		case 1:   // 최신등록 번호 조회를 위해 입력된 값을 불러오는 함수 사용
+			cout << d.getName() << "::" << d.getPnum() << endl;
+			break;
+		case 2:   // 전화번호 수정을 위해 수정 멤버함수 사용
+			d.editPhone();
+		}
+	} while (list != 3); //3을 입력할 때까지 반복
+
+	return 0;
+}
