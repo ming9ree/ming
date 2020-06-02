@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cstdlib> //rand 함수와 srand 함수 사용하기 위해
+#include <ctime> //time함수 사용하기 위해
+using namespace std;
+
+class Random //Random클래스 생성 
+{
+public: //멤버 변수에 대해 모든 클래스가 접근 가능하도록 public
+	Random(); //생성자
+	int next(); //멤버 변수, 난수의 범위가 설정되어 있지 않다.
+	int nextInRange(int a, int z); //멤버 변수, 난수의 범위는 a에서 z까지이다.
+};
+
+Random::Random()
+{
+	srand(time(0));
+}
+/* rand 함수는 난수를 발생시키는 함수다. 수를 발생 시킬 때 초기값(seed)을 사용한다.
+초기값의 기본 설정이 1이기 때문에 매번 같은 순서의 수를 발생시킨다.
+그러므로 초기값을 다른 값으로 지정해줘야 난수열이 바뀔 수 있다. 초기값을 변경
+해주기 위해서 사용하는 함수가 srand(seed) 함수이다. 프로그램 실행마다 초기값을
+변경 시키기 위해 매 초 새로운 값을 반환하는 time(0) 함수를 사용한다. */
+
+int Random::next()
+{
+	return rand();
+}
+/* rand 함수의 범위를 지정하지 않으면
+0부터 rand 함수의 최댓값인 32767 사이의 난수를 발생시킨다. */
+
+int Random::nextInRange(int a, int z)
+{
+	return rand() % (z - a + 1) + a;
+}
+/* rand 함수의 범위를 지정해준다. rand() % x는 0 부터 x-1 사이의 난수를 발생시킨다.*/
+
+int main()
+{
+	Random r;
+
+	cout << "-- 0에서 32767까지의 랜덤 정수 10개 --" << endl; 
+	//범위 지정하지 않은 rand 함수의 범위이다.
+	for (int i = 0; i < 10; i++) //for 문을 사용하여 10개의 난수를 출력
+	{
+		int n = r.next(); //n에 next 멤버 함수에 있는 rand함수를 이용해 난수 저장
+		cout << n << " ";
+	}
+
+	cout << endl << endl << "2에서 4까지의 랜덤 정수 10개 --" << endl;
+	//범위를 지정해주었기 때문에 nextInRange 멤버 함수를 사용하겠다.
+	for (int i = 0; i < 10; i++) //for 문을 사용하여 10개의 난수를 출력
+	{
+		int n = r.nextInRange(2, 4);
+		//n에 nextInRange 멤버 함수를 이용해 난수 저장
+		cout << n << " ";
+	}
+	cout << endl;
+
+	return 0;
+}
