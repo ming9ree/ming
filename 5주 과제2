@@ -1,0 +1,161 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class VendingMachine
+{
+private:
+	string name; //음료 이름
+	int price; //가격
+	int total=0; //음료 합산 값
+public:
+	VendingMachine() {}; //생성자
+	void purchase(double v1); //총 금액 출력, 지폐 입력, 거스름돈 출력
+	void menu(); //메뉴판 부분
+	string getName(); //name 값에 접근해 값 반환
+	double getPrice(); //price 값에 접근해 값 반환
+	double getTotal(); // Total 값에 접근해 값 반환
+	void setName(string n); //name 값에 접근해 값 수정
+	void setPrice(int p); //price 값에 접근해 값 수정
+	void setTotal(int t); //total값에 접근해 값 수정
+};
+
+void VendingMachine::purchase(double v1)
+{
+	cout << "총금액 : " << v1 << endl;
+	cout << "지폐를 입력하세요 : ";
+	int putMoney;
+	cin >> putMoney;
+	int change = putMoney - v1;
+	while (1)
+	{
+		/*금액이 부족한 경우 다시 돈을 넣은 뒤 거스름돈이 정상적으로 출력
+		될 때까지 무한루프(1) 실행*/
+		if (putMoney > v1) //총금액보다 입력한 값이 많을 때 
+		{
+			if (putMoney % 100 == 0) //거스름돈이 100단위로 떨어질 때
+				cout << "거스름돈 입니다." << endl;
+			else //거스름돈이 100단위로 나누어 떨어지지 않을 때
+				cout << "거스름 돈은 500원과 100원만 가능합니다." << endl;
+			//거스름돈 출력
+			cout << "500원 : " << change / 500 << "개" << endl
+				<< "100원 : " << change % 500 / 100 << "개" << endl
+				<< "안녕히가세요." << endl;
+			break;
+		}
+		else if (putMoney == v1) //거스름돈이 없을 때
+		{
+			cout << "거스름돈이 없습니다. 안녕히가세요.";
+			break;
+		}
+
+		else //총금액보다 입력한 값이 많을 때 
+		{
+			cout << "금액이 부족합니다. 다시 넣어주세요 >> ";
+			cin >> putMoney;
+		}
+	}
+}
+
+void VendingMachine::menu()
+{
+	cout << "=====SWING 자판기=====" << endl
+		<< "1. 코카콜라: 1500원" << endl
+		<< "2. 비타500: 900원" << endl
+		<< "3. 파워에이드: 2000원" << endl
+		<< "4. " << name << ": " << price << "원" << endl
+		<< "5. 계산" << endl << endl;
+}
+
+string VendingMachine::getName(){
+	return name;
+}
+
+double VendingMachine::getPrice(){
+	return price;
+}
+
+double VendingMachine::getTotal(){
+	return total;
+}
+
+void VendingMachine::setName(string n){
+	name = n;
+}
+
+void VendingMachine::setPrice(int p){
+	price = p;
+}
+
+void VendingMachine::setTotal(int t){
+	total += t;
+}
+
+int main(void) 
+{
+	VendingMachine vm; //객체 생성
+	VendingMachine* p = &vm; //포인터 변수 선언
+
+	cout << "=====SWING 자판기=====" << endl
+		<< "1. 코카콜라 : 1500원" << endl
+		<< "2. 비타500 : 900원" << endl
+		<< "3. 파워에이드 : 2000원" << endl
+		<< "4. 준비중" << endl
+		<< "5. 계산" << endl;
+	int price4; //추가할 음료 가격 받을 변수
+	string name4; //추가할 음료 이름 받을 변수
+	cout << endl << "추가할 음료 이름을 입력해주세요 : ";
+	cin >> name4;
+	(*p).setName(name4);
+
+	cout << "판매할 가격을 입력하세요 : ";
+	cin >> price4;
+	(*p).setPrice(price4);
+	cout << endl;
+
+	int choice, quantity; //사용자가 입력할 번호와 수량을 받을 변수 각각 선언
+	do
+	{
+		vm.menu();
+		cout << "번호를 선택해주세요 : ";
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+			cout << "구매할 수량을 입력해주세요 : ";
+			cin >> quantity;
+			cout << endl;
+			(*p).setTotal(quantity * 1500);
+			break;
+
+		case 2:
+			cout << "구매할 수량을 입력해주세요 : ";
+			cin >> quantity;
+			cout << endl;
+			(*p).setTotal(quantity * 900);
+			break;
+
+		case 3:
+			cout << "구매할 수량을 입력해주세요 : ";
+			cin >> quantity;
+			cout << endl;
+			(*p).setTotal(quantity * 2000);
+			break;
+
+		case 4:
+			cout << "구매할 수량을 입력해주세요 : ";
+			cin >> quantity;
+			cout << endl;
+			(*p).setTotal(quantity * vm.getPrice());
+			break;
+
+		case 5:
+			break;
+		}
+	} while (choice != 5); //5번을 선택하기 전까지 반복
+
+		cout << endl << "계산 중입니다. 기다려주세요..." << endl;
+
+		vm.purchase(vm.getTotal());
+}
