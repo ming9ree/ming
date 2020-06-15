@@ -48,7 +48,7 @@ void VendingMachine::purchase(double v1)
 			else
 			{
 				cout << "거스름 돈은 500원과 100원만 가능합니다." << endl
-					<< "500원: " << change % 500 << "개" << endl
+					<< "500원: " << change / 500 << "개" << endl
 					<< "100원: " << change % 500 / 100 << "개" << endl;
 				cout << "안녕히가세요.";
 				break;
